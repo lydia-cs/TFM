@@ -1,0 +1,172 @@
+{
+    "AnimSyncs": [
+        {
+            "Character1": "Acolyte2",
+            "Animation1": "rinse_mouth",
+            "Frames1": [
+                350.0,
+                440.0,
+                780.0,
+                900.0
+            ],
+            "Character2": "Priest",
+            "Animation2": "rinse_mouth",
+            "Frames2": [
+                276.0,
+                346.0,
+                811.0,
+                841.0
+            ],
+            "Delay": "5"
+        },
+        {
+            "Character1": "Client",
+            "Animation1": "stela_gold_exchange",
+            "Frames1": "1100.1364",
+            "Character2": "Priest",
+            "Animation2": "stela_gold_exchange",
+            "Frames2": "779.854",
+            "Delay": "14"
+        }
+    ],
+    "AnimEvents": [
+        {
+            "CharacterId": "Priest",
+            "Animation": "idle",
+            "Frame": "0",
+            "GraspingLeft": "Cane",
+            "GraspingRight": "Scepter"
+        },
+        {
+            "CharacterId": "Acolyte1",
+            "Animation": "idle",
+            "Frame": "0",
+            "GraspingLeft": "Censer",
+            "GraspingRight": "VasoHes"
+        },
+        {
+            "CharacterId": "Acolyte2",
+            "Animation": "idle",
+            "Frame": "0",
+            "GraspingLeft": "VasoNw",
+            "GraspingRight": "VasoNw"
+        },
+        {
+            "CharacterId": "Acolyte2",
+            "Animation": "leave_objects",
+            "Frame": "860",
+            "GraspingLeft": "Release",
+            "GraspingRight": "Release"
+        },
+        {
+            "CharacterId": "Acolyte1",
+            "Animation": "purification",
+            "Frame": "369",
+            "GraspingRight": "Release"
+        },
+        {
+            "CharacterId": "Acolyte1",
+            "Animation": "purification",
+            "Frame": "467",
+            "GraspingLeft": "Release"
+        },
+        {
+            "CharacterId": "Acolyte1",
+            "Animation": "purification",
+            "Frame": "545",
+            "GraspingLeft": "Bowl",
+            "GraspingRight": "Bowl"
+        },
+        {
+            "CharacterId": "Acolyte1",
+            "Animation": "purification",
+            "Frame": "1561",
+            "GraspingLeft": "Release",
+            "GraspingRight": "Release"
+        },
+        {
+            "CharacterId": "Acolyte2",
+            "Animation": "rinse_mouth",
+            "Frame": "160",
+            "GraspingRight": "VasoNw"
+        },
+        {
+            "CharacterId": "Acolyte2",
+            "Animation": "rinse_mouth",
+            "Frame": "350",
+            "GraspingLeft": "Cane"
+        },
+        {
+            "CharacterId": "Acolyte2",
+            "Animation": "rinse_mouth",
+            "Frame": "780",
+            "GraspingRight": "VasoNw"
+        },
+        {
+            "CharacterId": "Acolyte2",
+            "Animation": "rinse_mouth",
+            "Frame": "1090",
+            "GraspingRight": "Release"
+        },
+        {
+            "CharacterId": "Priest",
+            "Animation": "rinse_mouth",
+            "Frame": "346",
+            "GraspingLeft": "VasoNw"
+        },
+        {
+            "CharacterId": "Priest",
+            "Animation": "rinse_mouth",
+            "Frame": "841",
+            "GraspingLeft": "Cane"
+        },
+        {
+            "CharacterId": "Priest",
+            "Animation": "rub_stela",
+            "Frame": "269",
+            "GraspingRight": "Release"
+        },
+        {
+            "CharacterId": "Priest",
+            "Animation": "rub_stela",
+            "Frame": "462",
+            "GraspingLeft": "Release"
+        },
+        {
+            "CharacterId": "Priest",
+            "Animation": "rub_stela",
+            "Frame": "512",
+            "GraspingRight": "Stela"
+        },
+        {
+            "CharacterId": "Priest",
+            "Animation": "rub_stela",
+            "Frame": "2387",
+            "GraspingRight": "Release"
+        },
+        {
+            "CharacterId": "Client",
+            "Animation": "stela_gold_exchange",
+            "Frame": "826",
+            "GraspingRight": "Pouch"
+        },
+        {
+            "CharacterId": "Client",
+            "Animation": "stela_gold_exchange",
+            "Frame": "1364",
+            "GraspingLeft": "StelaMini"
+        },
+        {
+            "CharacterId": "Priest",
+            "Animation": "stela_gold_exchange",
+            "Frame": "515",
+            "GraspingRight": "StelaMini"
+        },
+        {
+            "CharacterId": "Priest",
+            "Animation": "stela_gold_exchange",
+            "Frame": "779",
+            "GraspingLeft": "Pouch"
+        }
+    ]
+}
