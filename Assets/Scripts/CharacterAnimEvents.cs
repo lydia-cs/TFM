@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 /// Handles animation events for characters, such as grabbing and releasing objects
 public class CharacterAnimEvents : MonoBehaviour
@@ -89,10 +90,17 @@ public class CharacterAnimEvents : MonoBehaviour
             worldScale.z / parentScale.z
         );
 
-        // Align X-axis of object toward arm
-        Quaternion armRotation = hand.rotation;
-        Quaternion desiredRotation = Quaternion.FromToRotation(obj.ModelObject.transform.right, hand.forward);
-        obj.ModelObject.transform.localRotation = desiredRotation * armRotation;
+        // Automatically determine if the hand is left or right based on the hand's local forward direction
+        bool isLeftHand = Vector3.Dot(hand.transform.forward, Vector3.right) < 0;
+
+        // Determine the correct axis to align with based on hand type
+        Vector3 handAlignmentAxis = isLeftHand ? -hand.transform.right : hand.transform.right;
+
+        // Align the object's Y-axis with the hand's axis
+        Quaternion rotationToAlign = Quaternion.FromToRotation(obj.ModelObject.transform.up, handAlignmentAxis);
+
+        // Apply the calculated rotation to the object
+        obj.ModelObject.transform.rotation = rotationToAlign * obj.ModelObject.transform.rotation;
     }
 }
 

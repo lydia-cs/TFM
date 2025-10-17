@@ -488,7 +488,7 @@ public class RitualController : MonoBehaviour
                 ?? ritualData.FindObject(currentLine.CameraTarget)?.ModelObject?.transform;
 
         if (smoothCameraTransition)
-            SmoothCameraTransition(cameraPosition, true, lookAtTarget, 1.5f);
+            SmoothCameraTransition(cameraPosition, true, lookAtTarget, 5f);
         else
         {
             mainCamera.transform.position = cameraPosition;

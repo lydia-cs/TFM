@@ -48,8 +48,8 @@
             "CharacterId": "Acolyte2",
             "Animation": "idle",
             "Frame": "0",
-            "GraspingLeft": "VasoNw",
-            "GraspingRight": "VasoNw"
+            "GraspingLeft": "VasoNw1",
+            "GraspingRight": "VasoNw2"
         },
         {
             "CharacterId": "Acolyte2",
@@ -88,7 +88,7 @@
             "CharacterId": "Acolyte2",
             "Animation": "rinse_mouth",
             "Frame": "160",
-            "GraspingRight": "VasoNw"
+            "GraspingRight": "VasoNw2"
         },
         {
             "CharacterId": "Acolyte2",
@@ -100,7 +100,7 @@
             "CharacterId": "Acolyte2",
             "Animation": "rinse_mouth",
             "Frame": "780",
-            "GraspingRight": "VasoNw"
+            "GraspingRight": "VasoNw2"
         },
         {
             "CharacterId": "Acolyte2",
@@ -112,7 +112,7 @@
             "CharacterId": "Priest",
             "Animation": "rinse_mouth",
             "Frame": "346",
-            "GraspingLeft": "VasoNw"
+            "GraspingLeft": "VasoNw2"
         },
         {
             "CharacterId": "Priest",

@@ -41,8 +41,7 @@
                 1.42,
                 0.0,
                 45.0
-            ],
-            "RelativeGameObject": "Entrance_Empty"
+            ]
         },
         {
             "Id": "FrontOfSekhmet",
@@ -70,7 +69,7 @@
             "Location": [
                 1.42,
                 -0.0,
-                5.0
+                5.5
             ]
         },
         {
@@ -289,7 +288,23 @@
             ]
         },
         {
-            "Id": "VasoNw",
+            "Id": "VasoNw1",
+            "IsStatic": "False",
+            "Location": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "Description": "Vaso nw de vino",
+            "Model": "vaso-nw",
+            "Scale": [
+                0.5,
+                0.5,
+                0.5
+            ]
+        },
+        {
+            "Id": "VasoNw2",
             "IsStatic": "False",
             "Location": [
                 0.0,
@@ -339,11 +354,6 @@
         {
             "Id": "Pouch",
             "IsStatic": "False",
-            "Location": [
-                0.0,
-                0.0,
-                0.0
-            ],
             "Description": "Regalos Nesuhor para la diosa",
             "Model": "pouch",
             "Scale": [
@@ -550,10 +560,10 @@
             "GraspingRight": "Scepter",
             "CameraPos": [
                 0.0,
-                10.0,
-                4.0
+                8.0,
+                6.0
             ],
-            "CameraTarget": "Priest"
+            "CameraTarget": "Altar"
         },
         {
             "ActID": "Act01",
@@ -572,8 +582,8 @@
             "CharacterID": "Acolyte2",
             "StartPos": "LeftOfAltar",
             "Animation": "idle",
-            "GraspingLeft": "VasoNw",
-            "GraspingRight": "VasoNw"
+            "GraspingLeft": "VasoNw1",
+            "GraspingRight": "VasoNw2"
         },
         {
             "ID": "ClientArrival",
@@ -596,8 +606,8 @@
             "Audio": "test",
             "CameraPos": [
                 -5.0,
-                10.0,
-                -10.0
+                8.0,
+                -8.0
             ],
             "CameraTarget": "Client"
         },
@@ -611,9 +621,9 @@
             "Animation": "hit_floor",
             "Dialogue": "Escuchamos tu ruego, Nesuhor! Sekhmet, la leona irascible, una vez apaciguada es protectora y sanadora y muestra su buena disposición para aquél que la invoca. Muestra-nos tu herida, Nesuhor.",
             "CameraPos": [
-                0.0,
-                10.0,
-                7.0
+                -5.0,
+                8.0,
+                8.0
             ],
             "CameraTarget": "Priest"
         },
@@ -624,7 +634,13 @@
             "Description": "Nesuhor, with a trembling gesture, lifts his tunic and reveals his armwith a wound caused by a scorpion bite.",
             "Duration": "4",
             "CharacterID": "Client",
-            "Animation": "show_wound"
+            "Animation": "show_wound",
+            "CameraPos": [
+                -5.0,
+                8.0,
+                -3.0
+            ],
+            "CameraTarget": "Altar"
         },
         {
             "ActID": "Act02",
@@ -658,7 +674,13 @@
             "CharacterID": "Acolyte1",
             "Animation": "purification",
             "GraspingLeft": "Bowl",
-            "GraspingRight": "Bowl"
+            "GraspingRight": "Bowl",
+            "CameraPos": [
+                -5.0,
+                8.0,
+                8.0
+            ],
+            "CameraTarget": "Priest"
         },
         {
             "ActID": "Act02",
@@ -673,8 +695,14 @@
             "Duration": "5",
             "CharacterID": "Acolyte2",
             "Animation": "rinse_mouth",
-            "GraspingLeft": "VasoNw",
-            "GraspingRight": "Scepter"
+            "GraspingLeft": "VasoNw2",
+            "GraspingRight": "Scepter",
+            "CameraPos": [
+                -5.0,
+                8.5,
+                5.0
+            ],
+            "CameraTarget": "Priest"
         },
         {
             "ActID": "Act02",
@@ -684,7 +712,7 @@
             "CharacterID": "Priest",
             "Animation": "rinse_mouth",
             "GraspingLeft": "Scepter",
-            "GraspingRight": "VasoNw"
+            "GraspingRight": "VasoNw2"
         },
         {
             "ActID": "Act02",
@@ -699,7 +727,7 @@
             "Description": "ChooseBranch"
         },
         {
-            "ID": "BranchA",
+            "ID": "BranchABegins",
             "ActID": "Act02",
             "SceneID": "3",
             "BranchID": "A",
@@ -709,10 +737,16 @@
             "Animation": "rub_stela",
             "GraspingRight": "Stela",
             "Target": "Altar",
-            "Dialogue": "“Ven pronto a mí, ven pronto a mí en este día, como lo hizo por ti aquel que conduce la barca divina. \n¡Que puedas alejar de mí todo león que esté en la meseta del desierto, todo cocodrilo que esté en el río, y toda boca mordedora en su cueva! \nQue puedas transformarlas para mí en piedras del desierto, en trozos de cerámica a lo largo del camino...»"
+            "Dialogue": "“Ven pronto a mí, ven pronto a mí en este día, como lo hizo por ti aquel que conduce la barca divina. \n¡Que puedas alejar de mí todo león que esté en la meseta del desierto, todo cocodrilo que esté en el río, y toda boca mordedora en su cueva! \nQue puedas transformarlas para mí en piedras del desierto, en trozos de cerámica a lo largo del camino...»",
+            "CameraPos": [
+                -5.0,
+                8.0,
+                -3.0
+            ],
+            "CameraTarget": "Priest"
         },
         {
-            "ID": "BranchA",
+            "ID": "BranchAEnds",
             "ActID": "Act02",
             "SceneID": "3",
             "BranchID": "A",
@@ -820,7 +854,13 @@
             "Duration": "-1",
             "CharacterID": "Priest",
             "Animation": "invocation",
-            "Dialogue": "Ven a la tierra, veneno poderoso! Nesuhor vive. El veneno ha muerto. El orden ha sido restablecido."
+            "Dialogue": "Ven a la tierra, veneno poderoso! Nesuhor vive. El veneno ha muerto. El orden ha sido restablecido.",
+            "CameraPos": [
+                0.0,
+                7.0,
+                0.0
+            ],
+            "CameraTarget": "Altar"
         },
         {
             "ActID": "Act03",
@@ -832,7 +872,13 @@
             "GraspingLeft": "Pouch",
             "GraspingRight": "StelaMini",
             "Target": "Entrance",
-            "Dialogue": "Mi gratitud es vuestra, sacerdote puro. Que Sekhmet siempre os favorezca."
+            "Dialogue": "Mi gratitud es vuestra, sacerdote puro. Que Sekhmet siempre os favorezca.",
+            "CameraPos": [
+                -5.0,
+                8.0,
+                8.0
+            ],
+            "CameraTarget": "Altar"
         },
         {
             "ActID": "Act03",
@@ -850,7 +896,13 @@
             "ActID": "Act03",
             "SceneID": "4",
             "CharacterID": "Priest",
-            "Dialogue": "Ve en paz, Nesuhor. Recuerda contar a todos, al grande y al pequeño, que la fuerza de Horus es grande, el arquetipo del que vence el veneno, el protege a quien lo invoca."
+            "Dialogue": "Ve en paz, Nesuhor. Recuerda contar a todos, al grande y al pequeño, que la fuerza de Horus es grande, el arquetipo del que vence el veneno, el protege a quien lo invoca.",
+            "CameraPos": [
+                0.0,
+                7.0,
+                13.0
+            ],
+            "CameraTarget": "Altar"
         }
     ],
     "Branches": [
