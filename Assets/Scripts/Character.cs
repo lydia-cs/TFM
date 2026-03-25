@@ -1,5 +1,8 @@
+using GLTFast.Schema;
 using System;
+using System.Buffers.Text;
 using System.Linq;
+using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
@@ -40,40 +43,141 @@ public class Character : ILoadableModel
     // Two-hand anchor
     private GameObject twoHandAnchor;
 
-    // Animator Setup
+    // LowerBody defaul idle
+    private const int BASE_LAYER = 0;
+    private const int LOWER_BODY_LAYER = 1;
+    private static AvatarMask lowerBodyMask;
+
+    private static AvatarMask GetOrCreateLowerBodyMask()
+    {
+        if (lowerBodyMask != null)
+            return lowerBodyMask;
+
+        lowerBodyMask = new AvatarMask();
+
+        // Desactivar todo
+        for (int i = 0; i < (int)AvatarMaskBodyPart.LastBodyPart; i++)
+            lowerBodyMask.SetHumanoidBodyPartActive((AvatarMaskBodyPart)i, false);
+
+        // Només cames
+        lowerBodyMask.SetHumanoidBodyPartActive(AvatarMaskBodyPart.Root, true);
+        lowerBodyMask.SetHumanoidBodyPartActive(AvatarMaskBodyPart.LeftLeg, true);
+        lowerBodyMask.SetHumanoidBodyPartActive(AvatarMaskBodyPart.RightLeg, true);
+
+        return lowerBodyMask;
+    }
+
     public void AddAnimator()
     {
-        Anim = ModelObject.GetComponent<Animator>() ?? ModelObject.AddComponent<Animator>();        // Ensure Animator
-        if (ModelObject.GetComponent<CharacterAnimEvents>() == null)                                 // Ensure events handler
-            ModelObject.AddComponent<CharacterAnimEvents>();
+        Anim = ModelObject.GetComponent<Animator>() ?? ModelObject.AddComponent<Animator>();
+
+        var animEvents = ModelObject.GetComponent<CharacterAnimEvents>();
+
+        if (animEvents == null)
+            animEvents = ModelObject.AddComponent<CharacterAnimEvents>();
+
+        animEvents.character = this; // asignar la referencia
 
         var controller = new AnimatorController();
+
+        // =========================
+        // BASE LAYER (FULL BODY)
+        // =========================
         controller.AddLayer("Base Layer");
+        var baseSM = controller.layers[BASE_LAYER].stateMachine;
 
-        var stateMachine = controller.layers[0].stateMachine;
-        var emptyState = stateMachine.AddState("Empty");                                             // Default state
-        emptyState.motion = null;
-        stateMachine.defaultState = emptyState;
+        var empty = baseSM.AddState("Empty");
+        empty.motion = null;
+        empty.tag = "Idle";
+        baseSM.defaultState = empty;
 
-        Anim.avatar = CharacterAvatar;
+        // =========================
+        // LOWER BODY IDLE LAYER
+        // =========================
+        var lowerLayer = new AnimatorControllerLayer
+        {
+            name = "LowerBodyIdle",
+            blendingMode = AnimatorLayerBlendingMode.Override,
+            defaultWeight = 0f, // off initially
+            avatarMask = GetOrCreateLowerBodyMask(),
+            stateMachine = new AnimatorStateMachine()
+        };
+
+        controller.AddLayer(lowerLayer);
+
+        var idleClip = Resources.Load<AnimationClip>($"Animations/Accelerated/{Id.ToLower()}_idle");
+        if (idleClip != null)
+        {
+            var settings = AnimationUtility.GetAnimationClipSettings(idleClip);
+            settings.loopTime = true;
+            AnimationUtility.SetAnimationClipSettings(idleClip, settings);
+        }
+        var idleState = lowerLayer.stateMachine.AddState("IdleLower");
+        idleState.motion = idleClip;
+        lowerLayer.stateMachine.defaultState = idleState;
+
         Anim.runtimeAnimatorController = controller;
-        Anim.applyRootMotion = true;
+        //Anim.avatar = CharacterAvatar;
 
-        Debug.Log($"Animator added to character '{Id}'");
+        Anim.applyRootMotion = true;
+        Anim.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+
+        // Ensure layer weight starts at 1
+        Anim.SetLayerWeight(LOWER_BODY_LAYER, 0f);
     }
 
     public void AddAnimation(AnimationClip animClip)
     {
+        if (animClip == null || Anim == null) return;
+
+        // Crear evento que llame a EnableLowerBodyIdleEvent de CharacterAnimEvents
+        AnimationEvent evt = new AnimationEvent
+        {
+            functionName = "EnableLowerBodyIdleEvent",
+            time = animClip.length
+        };
+
+        // Limpiar eventos previos
+        var existingEvents = animClip.events;
+        animClip.events = System.Array.FindAll(existingEvents, e => e.functionName != "EnableLowerBodyIdleEvent");
+
+        // Añadir el nuevo evento
+        animClip.AddEvent(evt);
+
+        // Añadir al AnimatorController
         var controller = Anim.runtimeAnimatorController as AnimatorController;
-        var stateMachine = controller.layers[0].stateMachine;
+        var stateMachine = controller.layers[BASE_LAYER].stateMachine;
 
         var state = stateMachine.AddState(animClip.name);
         state.motion = animClip;
 
-        Debug.Log($"Added animation '{animClip.name}' to character '{Id}'");
+        Debug.Log($"Added animation '{animClip.name}' with LowerBodyIdleEvent to '{Id}'");
     }
 
-    public void PlayAnimation(string animation) => Anim.Play(animation);
+    public void PlayAnimation(string animation)
+    {
+        if (Anim == null) return;
+
+        // Desactivar LowerBodyIdle mientras se reproduce otra animación
+        DisableLowerBodyIdle();
+
+        // Reproducir animación full-body en BaseLayer
+        Anim.Play(animation, BASE_LAYER, 0f);
+    }
+
+
+    public void EnableLowerBodyIdle()
+    {
+        if (Anim == null) return;
+        Anim.SetLayerWeight(LOWER_BODY_LAYER, 1f);
+    }
+
+    public void DisableLowerBodyIdle()
+    {
+        if (Anim == null) return;
+        Anim.SetLayerWeight(LOWER_BODY_LAYER, 0f);
+    }
+
 
     public bool HasAnimation(string animationName)
     {
@@ -94,17 +198,32 @@ public class Character : ILoadableModel
     }
 
     // Hand / Object Interaction
-    public Transform GetLeftHand()
+    public Transform GetLeftHandMiddle()
     {
         if (Anim != null && Anim.isHuman && Anim.avatar.isValid)
             return Anim.GetBoneTransform(HumanBodyBones.LeftMiddleProximal);
         return null;
     }
 
-    public Transform GetRightHand()
+    public Transform GetRightHandMiddle()
     {
         if (Anim != null && Anim.isHuman && Anim.avatar.isValid)
             return Anim.GetBoneTransform(HumanBodyBones.RightMiddleProximal);
+        return null;
+    }
+
+public Transform GetRightHand()
+    {
+        if (Anim != null && Anim.isHuman && Anim.avatar.isValid)
+            // HumanBodyBones.RightHand és el canell, pare de TOTS els dits
+            return Anim.GetBoneTransform(HumanBodyBones.RightHand);
+        return null;
+    }
+
+    public Transform GetLeftHand()
+    {
+        if (Anim != null && Anim.isHuman && Anim.avatar.isValid)
+            return Anim.GetBoneTransform(HumanBodyBones.LeftHand);
         return null;
     }
 

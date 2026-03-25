@@ -11,6 +11,7 @@ public class Play
     public string BranchID;           // Optional: ID of the branch this line belongs to
     public string EnvironmentID;      // ID of the environment to use for this line
     public string Description;        // Text description of the line (may include "ChooseBranch")
+    public string AudioDescription;   // Optional audio clip of the text in description (Resources/Audios)
     public float Duration;            // Duration in seconds (-1 = automatic based on animation)
     public string CharacterID;        // ID of the character performing the action
     public string StartPos;           // Optional starting position reference

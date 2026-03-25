@@ -85,6 +85,19 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(PlayWithDucking(clip));
     }
 
+    public void PauseDialogue()
+    {
+        if (sfxSource != null && sfxSource.isPlaying)
+            sfxSource.Pause();
+    }
+
+    public void ResumeDialogue()
+    {
+        if (sfxSource != null)
+            sfxSource.UnPause();
+    }
+
+
     private IEnumerator PlayWithDucking(AudioClip clip)
     {
         // Lower music volume
@@ -92,6 +105,7 @@ public class AudioManager : MonoBehaviour
 
         // Play the SFX
         sfxSource.PlayOneShot(clip, musicVolume);
+        //pitch
 
         // Wait until SFX finishes
         yield return new WaitForSeconds(clip.length);

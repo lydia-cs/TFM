@@ -7,4 +7,5 @@ public class AnimData
 {
     public List<AnimSync> AnimSyncs;
     public List<AnimEvent> AnimEvents;
+    public List<Animation> Animations;
 }

@@ -7,6 +7,7 @@ public class Environment : ILoadableModel
 {
     public string Id;             // Unique identifier for the environment
     public string Description;    // Description of the environment
+    public string ExtendedDescription;
     public string Model;          // Path under Resources/Models
     public string Unit;           // Unit or scale reference for measurements
     public float[] Scale;         // Optional scaling factors [x, y, z]

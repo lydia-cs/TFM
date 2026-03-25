@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,6 +17,8 @@ public class AnymSyncLoader : MonoBehaviour
     private Dictionary<string, List<AnimEvent>> eventsByAnimName; // Lookup dictionary
     private float frameRate = 30f;                                  // Default frame rate
     private List<Segment> segments = new List<Segment>();           // Temporary segments list
+    private float acceleration = 2f; 
+
 
     // Nested Class
     [Serializable]
@@ -44,6 +46,67 @@ public class AnymSyncLoader : MonoBehaviour
         AnimationsToSync = animData?.AnimSyncs;
         AnimEvents = animData?.AnimEvents;
     }
+
+    public void CreateAcceleratedAnimations()
+    {
+        if (animData?.Animations == null)
+        {
+            Debug.LogError("No animations found in AnimData!");
+            return;
+        }
+
+        string saveFolder = "Assets/Resources/Animations/Accelerated/";
+        if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
+
+        foreach (var animInfo in animData.Animations)
+        {
+            string animPath = $"Animations/{animInfo.CharacterID.ToLower()}_{animInfo.Id}";
+            AnimationClip originalClip = Resources.Load<AnimationClip>(animPath);
+
+            if (originalClip == null)
+            {
+                Debug.LogWarning($"Original animation not found: {animPath}");
+                continue;
+            }
+
+            var newClip = new AnimationClip
+            {
+                frameRate = originalClip.frameRate,  // same frameRate
+                wrapMode = originalClip.wrapMode,
+                name = originalClip.name
+            };
+
+            // Scale keyframe times
+            foreach (var binding in AnimationUtility.GetCurveBindings(originalClip))
+            {
+                var originalCurve = AnimationUtility.GetEditorCurve(originalClip, binding);
+                var newKeys = originalCurve.keys
+                    .Select(k => new Keyframe(k.time / acceleration, k.value, k.inTangent, k.outTangent))
+                    .ToArray();
+
+                var newCurve = new AnimationCurve(newKeys)
+                {
+                    preWrapMode = originalCurve.preWrapMode,
+                    postWrapMode = originalCurve.postWrapMode
+                };
+
+                AnimationUtility.SetEditorCurve(newClip, binding, newCurve);
+            }
+
+            // No events to copy at this point
+
+            // Save accelerated clip
+            string fileName = $"{animInfo.CharacterID.ToLower()}_{animInfo.Id}.anim";
+            string savePath = Path.Combine(saveFolder, fileName);
+
+            if (File.Exists(savePath)) AssetDatabase.DeleteAsset(savePath);
+            AssetDatabase.CreateAsset(newClip, savePath);
+            AssetDatabase.SaveAssets();
+
+            Debug.Log($"Accelerated animation saved: {savePath}");
+        }
+    }
+
 
     // Event Management
     public void BuildEventsDict()
@@ -83,8 +146,8 @@ public class AnymSyncLoader : MonoBehaviour
             string anim1Name = $"{ats.Character1.ToLower()}_{ats.Animation1}";
             string anim2Name = $"{ats.Character2.ToLower()}_{ats.Animation2}";
 
-            AnimationClip anim1Clip = Resources.Load<AnimationClip>($"Animations/{anim1Name}");
-            AnimationClip anim2Clip = Resources.Load<AnimationClip>($"Animations/{anim2Name}");
+            AnimationClip anim1Clip = Resources.Load<AnimationClip>($"Animations/Accelerated/{anim1Name}");
+            AnimationClip anim2Clip = Resources.Load<AnimationClip>($"Animations/Accelerated/{anim2Name}");
 
             if (anim1Clip == null || anim2Clip == null)
             {
@@ -94,12 +157,15 @@ public class AnymSyncLoader : MonoBehaviour
 
             anim1Clip.name = ats.Animation1;
             anim2Clip.name = ats.Animation2;
-            frameRate = anim2Clip.frameRate;
+            float acceleratedDelay = ats.Delay / acceleration;
+            int delayByFrames = Mathf.RoundToInt(acceleratedDelay * frameRate);
 
-            int delayByFrames = Mathf.RoundToInt(ats.Delay * frameRate);
-            int[] alignedFrames1 = ats.Frames1.Select(f => f - delayByFrames).ToArray();
+            // Scale frames for accelerated animation
+            int[] alignedFrames1 = ats.Frames1.Select(f => Mathf.RoundToInt(f / acceleration) - delayByFrames).ToArray();
+            int[] alignedFrames2 = ats.Frames2.Select(f => Mathf.RoundToInt(f / acceleration)).ToArray();
 
-            var segments = GenerateSegmentsFromFrameData(anim1Clip, anim2Clip, alignedFrames1, ats.Frames2);
+            // Generate segments using scaled frames
+            var segments = GenerateSegmentsFromFrameData(anim1Clip, anim2Clip, alignedFrames1, alignedFrames2);
 
             CreateModifiedClip(anim2Clip, segments, ats.Character2);
         }
@@ -191,7 +257,10 @@ public class AnymSyncLoader : MonoBehaviour
 
             foreach (var animEv in animEvs)
             {
-                float remappedTime = RemapFrameToTime(animEv.Frame, segments, frameRate);
+                // Scale the original frame by 1/acceleration before remapping
+                int acceleratedFrame = Mathf.RoundToInt(animEv.Frame / acceleration);
+                float remappedTime = RemapFrameToTime(acceleratedFrame, segments, frameRate);
+                //float remappedTime = RemapFrameToTime(animEv.Frame, segments, frameRate);
                 int remappedFrame = Mathf.RoundToInt(remappedTime * frameRate);
                 unityEvents.Add(animEv.BuildAnimationEvent(remappedFrame, frameRate));
             }
@@ -247,7 +316,7 @@ public class AnymSyncLoader : MonoBehaviour
             string charId = key.Substring(0, underscoreIndex);
             string animName = key.Substring(underscoreIndex + 1);
 
-            string animPath = $"Animations/{key}";
+            string animPath = $"Animations/Accelerated/{key}";
             AnimationClip originalClip = Resources.Load<AnimationClip>(animPath);
             if (originalClip == null) { Debug.LogWarning($"Animation not found for events: {key}"); continue; }
 
@@ -264,7 +333,9 @@ public class AnymSyncLoader : MonoBehaviour
             var unityEvents = new List<AnimationEvent>();
             foreach (var evt in events)
             {
-                float time = evt.Frame / newClip.frameRate;
+                //float time = evt.Frame / newClip.frameRate;
+                float time = (evt.Frame / acceleration) / newClip.frameRate;
+
                 unityEvents.Add(new AnimationEvent
                 {
                     time = time,

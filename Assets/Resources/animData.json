@@ -1,4 +1,111 @@
 {
+    "Animations": [
+        {
+            "Id": "idle",
+            "CharacterID": "Priest",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "idle",
+            "CharacterID": "Acolyte1",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "idle",
+            "CharacterID": "Acolyte2",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "arrival",
+            "CharacterID": "Client",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "hit_floor",
+            "CharacterID": "Priest",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "show_wound",
+            "CharacterID": "Client",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "libation",
+            "CharacterID": "Acolyte1",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "leave_objects",
+            "CharacterID": "Acolyte2",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "purification",
+            "CharacterID": "Acolyte1",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "purification",
+            "CharacterID": "Priest",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "rinse_mouth",
+            "CharacterID": "Acolyte2",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "rinse_mouth",
+            "CharacterID": "Priest",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "invocation",
+            "CharacterID": "Priest",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "rub_stela",
+            "CharacterID": "Priest",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "pathB",
+            "CharacterID": "Priest",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "drink",
+            "CharacterID": "Client",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "pathC",
+            "CharacterID": "Priest",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "pathD",
+            "CharacterID": "Priest",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "stela_gold_exchange",
+            "CharacterID": "Client",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "stela_gold_exchange",
+            "CharacterID": "Priest",
+            "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "idle",
+            "CharacterID": "Client",
+            "Actor": "Àlex Locubiche Vílchez"
+        }
+    ],
     "AnimSyncs": [
         {
             "Character1": "Acolyte2",
@@ -88,7 +195,7 @@
             "CharacterId": "Acolyte2",
             "Animation": "rinse_mouth",
             "Frame": "160",
-            "GraspingRight": "VasoNw2"
+            "GraspingRight": "VasoHes"
         },
         {
             "CharacterId": "Acolyte2",
@@ -100,7 +207,7 @@
             "CharacterId": "Acolyte2",
             "Animation": "rinse_mouth",
             "Frame": "780",
-            "GraspingRight": "VasoNw2"
+            "GraspingRight": "VasoHes"
         },
         {
             "CharacterId": "Acolyte2",
@@ -112,7 +219,7 @@
             "CharacterId": "Priest",
             "Animation": "rinse_mouth",
             "Frame": "346",
-            "GraspingLeft": "VasoNw2"
+            "GraspingLeft": "VasoHes"
         },
         {
             "CharacterId": "Priest",

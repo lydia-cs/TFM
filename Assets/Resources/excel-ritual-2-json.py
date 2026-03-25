@@ -51,6 +51,9 @@ for sheet_name in xls.sheet_names:
     # Handle AnimSyncs and AnimEvents specially
     if sheet_name in ["AnimSyncs", "AnimEvents"]:
         anim_data[sheet_name] = sheet_data
+    elif sheet_name in ["Animations"]:
+        anim_data[sheet_name] = sheet_data
+        data_dict[sheet_name] = sheet_data
     else:
         data_dict[sheet_name] = sheet_data  # Store sheet data in main dictionary
 

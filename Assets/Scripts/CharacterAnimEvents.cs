@@ -6,6 +6,9 @@ public class CharacterAnimEvents : MonoBehaviour
 {
     // Called by animation events to handle object interactions
     // eventInfo format: "CharacterID|LeftObjectID|RightObjectID"
+
+    public Character character; // asigna esto al instanciar el character
+
     public void GrabObject(string eventInfo)
     {
         string[] info = eventInfo.Split('|');                                    // Parse event info
@@ -22,8 +25,8 @@ public class CharacterAnimEvents : MonoBehaviour
         if (isTwoHanded) HandleTwoHanded(character, objectLeft);                 // Two-handed interaction
         else
         {
-            HandleSingleHand(character, objectLeft, leftHand, true);            // Left hand
-            HandleSingleHand(character, objectRight, rightHand, false);         // Right hand
+            HandleSingleHand(character, objectLeft, character.GetLeftHandMiddle(), true);            // Left hand
+            HandleSingleHand(character, objectRight, character.GetRightHandMiddle(), false);         // Right hand
         }
     }
 
@@ -102,6 +105,23 @@ public class CharacterAnimEvents : MonoBehaviour
         // Apply the calculated rotation to the object
         obj.ModelObject.transform.rotation = rotationToAlign * obj.ModelObject.transform.rotation;
     }
+
+    // Habilita el LowerBodyIdle cuando termina una animación full-body
+    public void EnableLowerBodyIdleEvent()
+    {
+        // Si la referència és null, la busquem al moment
+        if (character == null)
+        {
+            character = RitualController.Instance.GetRitualData().Characters
+                        .Find(c => c.ModelObject == this.gameObject);
+        }
+
+        if (character != null)
+        {
+            character.EnableLowerBodyIdle();
+        }
+    }
+
 }
 
 

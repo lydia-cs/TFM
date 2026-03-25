@@ -12,8 +12,11 @@ public class AnymSyncLoaderEditor
         GameObject tempGO = new GameObject("Temp_AnymSyncRunner");
         var loader = tempGO.AddComponent<AnymSyncLoader>();
 
-        // Load & Modify Animations
+        // Load & Modify Animationss
         loader.LoadAnimData();        // Load animation data from Resources/animData.json
+
+        loader.CreateAcceleratedAnimations(); // Double speed
+
         loader.ModifyAnimation2();    // Modify Animation2 clips based on sync data
         loader.AddEventOnlyClips();   // Add clips containing only animation events
 

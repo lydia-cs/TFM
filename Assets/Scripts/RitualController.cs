@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class RitualController : MonoBehaviour
 {
@@ -26,6 +28,34 @@ public class RitualController : MonoBehaviour
         DontDestroyOnLoad(gameObject); // Persist across scenes
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // Si el panell no existeix, el creem primer
+            //if (xrayPanel == null)
+            if(infoWindow.xrayPanel == null)
+            {
+                infoWindow.CreateXrayWindow();
+                OpenXrayWindow();
+            }
+            else
+            {
+                // Si ja existeix, mirem si està actiu per decidir si obrir o tancar
+                //if (xrayPanel.activeSelf)
+                if(infoWindow.xrayPanel.activeSelf)
+                {
+                    CloseXrayWindow();
+                }
+                else
+                {
+                    OpenXrayWindow();
+                }
+            }
+        }
+    }
+
+
     // Fields & references
     private RitualData ritualData;              // Loaded JSON ritual info
     private AudioManager audioManager;          // Handles music & dialogues
@@ -37,16 +67,17 @@ public class RitualController : MonoBehaviour
     private int currentIndex = 0;               // Index of current line in play
     private Vector3 newOrigin = Vector3.zero;   // Scene origin offset for positioning
 
-    private bool waitForBranch = false;         // Flag to pause for user choice
-    private string selectedBranch = null;       // Currently selected branch ID
-    private int branchEnd = -1;                 // Index where current branch ends
-    private int afterBranchResumeIndex;         // Line index to resume after branch ends
-
-    private GameObject choicePanel;             // UI panel for branch choices
     private Dictionary<string, Button> choiceButtons = new Dictionary<string, Button>(); // Buttons for each choice
 
     private GameObject loadingScreen;           // UI loading screen panel
     private Text loadingText;                   // Text for loading screen
+
+    // Branches
+    private bool waitForBranch = false;         // Flag per pausar esperant la tria de l'usuari
+    private string selectedBranch = null;       // ID de la branca seleccionada
+    private int branchEnd = -1;                 // Índex on acaba la branca actual
+    private int afterBranchResumeIndex;         // Índex on reprendre el ritual després de la branca
+    private GameObject choicePanel;             // Panell UI per a les opcions
 
     [Header("Current Line Info")]
     [TextArea(2, 5)]
@@ -54,6 +85,10 @@ public class RitualController : MonoBehaviour
     public string currentCharacters;            // Characters involved in current line
     public Vector3 currentCameraPos;            // Camera position for current line
     public string currentCameraTarget;          // Target object/character for camera to look at
+
+    private bool isAutoPlaying = true; // Controls pause/resume
+
+    private InfoWindow infoWindow;
 
     // Unity Start
     void Start()
@@ -68,6 +103,12 @@ public class RitualController : MonoBehaviour
         PlaceObjects();                         // Apply position, rotation, scale
         AddAnimations();                        // Load character animations
         PlayBackgroundMusic();                  // Start music playback
+
+        // Si ja el tens posat a l'escena:
+        infoWindow = FindFirstObjectByType<InfoWindow>();
+
+        // O si el vols crear com a l'Opció A:
+        infoWindow = new GameObject("InfoWindow").AddComponent<InfoWindow>();
 
         StartCoroutine(AutoplayCoroutine());    // Begin automatic playback of the ritual
     }
@@ -182,85 +223,6 @@ public class RitualController : MonoBehaviour
         }
     }
 
-    void CreateChoicePanel()
-    {
-        // Canvas
-        GameObject canvasGO = new GameObject("ChoiceCanvas");
-        Canvas canvas = canvasGO.AddComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvasGO.AddComponent<CanvasScaler>(); canvasGO.AddComponent<GraphicRaycaster>();
-
-        // Panel background
-        choicePanel = new GameObject("ChoicePanel");
-        choicePanel.transform.SetParent(canvasGO.transform, false);
-        Image panelImage = choicePanel.AddComponent<Image>();
-        panelImage.color = new Color(0, 0, 0, 0.7f);
-
-        RectTransform panelRect = choicePanel.GetComponent<RectTransform>();
-        panelRect.anchorMin = new Vector2(0.1f, 0.3f);
-        panelRect.anchorMax = new Vector2(0.9f, 0.7f);
-        panelRect.offsetMin = Vector2.zero; panelRect.offsetMax = Vector2.zero;
-
-        // Local helper to create buttons
-        Button CreateButton(string label, string id)
-        {
-            GameObject buttonGO = new GameObject("Button" + id);
-            buttonGO.transform.SetParent(choicePanel.transform, false);
-
-            Button button = buttonGO.AddComponent<Button>();
-            Image btnImage = buttonGO.AddComponent<Image>(); btnImage.color = Color.white;
-
-            RectTransform btnRect = buttonGO.GetComponent<RectTransform>();
-            btnRect.sizeDelta = new Vector2(600, 60); btnRect.anchorMin = btnRect.anchorMax = new Vector2(0.5f, 0.5f);
-            btnRect.pivot = new Vector2(0.5f, 0.5f);
-
-            // Button label
-            GameObject textGO = new GameObject("Text");
-            textGO.transform.SetParent(buttonGO.transform, false);
-            Text text = textGO.AddComponent<Text>();
-            text.text = label; text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            text.alignment = TextAnchor.MiddleCenter; text.color = Color.black; text.fontSize = 20;
-
-            RectTransform textRect = textGO.GetComponent<RectTransform>();
-            textRect.anchorMin = Vector2.zero; textRect.anchorMax = Vector2.one;
-            textRect.offsetMin = Vector2.zero; textRect.offsetMax = Vector2.zero;
-
-            button.onClick.AddListener(() => SelectBranch(id));
-            return button;
-        }
-
-        // Create buttons dynamically
-        List<Branch> branches = ritualData.Branches;
-        float step = 70f;
-        for (int i = 0; i < branches.Count; i++)
-        {
-            string buttonText = branches[i].ButtonText;
-            string branchID = branches[i].Id;
-            Button newButton = CreateButton(buttonText, branchID);
-            RectTransform btnRect = newButton.GetComponent<RectTransform>();
-
-            float totalHeight = branches.Count * step;
-            float startY = totalHeight / 2f - step / 2f;
-            btnRect.anchoredPosition = new Vector2(0, startY - i * step);
-        }
-    }
-
-    public void SelectBranch(string branchID)
-    {
-        selectedBranch = branchID;
-        waitForBranch = false;
-
-        var branch = ritualData.Branches.FirstOrDefault(b => b.Id == branchID);
-        if (branch == null) { Debug.LogError($"Branch {branchID} not found."); return; }
-
-        int branchStartIndex = branch.StartingLine - 2; // Convert to 0-based
-        branchEnd = branch.EndingLine - 2;
-        currentIndex = branchStartIndex;
-
-        choicePanel?.SetActive(false);
-
-        Debug.Log($"Branch selected: {branchID}, from {branchStartIndex} to {branchEnd}");
-    }
-
     // Data Loading & Object Instantiation
     void LoadJson()
     {
@@ -274,7 +236,11 @@ public class RitualController : MonoBehaviour
 
         // Initialize environment
         SetOrigin(ritualData.FindEnvironment(ritualData.Play[0].EnvironmentID));
-        afterBranchResumeIndex = ritualData.Branches.Last().EndingLine + 1 - 2;
+
+        if (ritualData.Branches != null && ritualData.Branches.Count > 0)
+        {
+            afterBranchResumeIndex = ritualData.Branches.Last().EndingLine - 1;
+        }
     }
 
     void InstantiateModels()
@@ -359,13 +325,27 @@ public class RitualController : MonoBehaviour
             if (character.HasAnimation(anim.Id)) continue;
 
             string animationName = $"{anim.CharacterID.ToLower()}_{anim.Id}";
-            AnimationClip clip = Resources.Load<AnimationClip>($"Animations/{animationName}");
+            AnimationClip clip = Resources.Load<AnimationClip>($"Animations/Accelerated/{animationName}");
             if (clip == null) { Debug.LogError($"Animation {animationName} not found."); continue; }
 
             clip.name = anim.Id;
             character.AddAnimation(clip);
         }
     }
+
+    // Yield
+    private IEnumerator WaitWhilePaused(float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            if (isAutoPlaying)
+                //elapsed += Time.deltaTime;
+                elapsed += Time.unscaledDeltaTime; // ⬅️ IMPORTANT
+            yield return null;
+        }
+    }
+
 
     // Core Gameplay Flow
     IEnumerator AutoplayCoroutine()
@@ -376,8 +356,25 @@ public class RitualController : MonoBehaviour
 
         while (currentIndex < ritualData.Play.Count)
         {
-            while (waitForBranch) yield return null; // Wait for branch selection
+            // LÒGICA DE BRANCHES
+            // 1. Comprovar si toca triar branca
+            if (selectedBranch == null && ritualData.Branches.Any(b => b.StartingLine - 2 == currentIndex))
+            {
+                waitForBranch = true;
+                if (choicePanel == null) CreateChoicePanel();
+                else choicePanel.SetActive(true);
 
+                yield return new WaitWhile(() => waitForBranch);
+            }
+
+            // 2. Comprovar si hem acabat una branca per saltar al final
+            if (selectedBranch != null && currentIndex > branchEnd)
+            {
+                currentIndex = afterBranchResumeIndex;
+                selectedBranch = null; // Reset per permetre futures branques si n'hi hagués
+            }
+
+            //var currentLine = ritualData.Play[currentIndex];
             UpdateLineInfo();     // Update current description, characters, camera info
             ExecuteNextAction();  // Move characters, play animations, audio, camera
 
@@ -393,15 +390,9 @@ public class RitualController : MonoBehaviour
             }
             else if (currentLine.Duration > 0) waitTime = currentLine.Duration;
 
-            yield return new WaitForSeconds(waitTime);
+            yield return WaitWhilePaused(waitTime); //This ensures that if isAutoPlaying is false (paused), the coroutine stops counting time until resumed.
 
-            // Resume after branch ends
-            if (currentIndex == branchEnd)
-            {
-                Debug.Log("Branch finished, resuming main sequence.");
-                currentIndex = afterBranchResumeIndex;
-                selectedBranch = null;
-            }
+            //yield return new WaitForSeconds(waitTime);
         }
 
         Debug.Log("Ritual playback finished.");
@@ -410,6 +401,42 @@ public class RitualController : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    public void PauseAutoplay() => isAutoPlaying = false;
+
+    public void ResumeAutoplay()
+    {
+        // col·locar cam a la posició pre-xray
+        isAutoPlaying = true;
+    }
+    
+
+    public void OpenXrayWindow()
+    {
+        if (infoWindow.xrayPanel == null)
+            infoWindow.CreateXrayWindow();
+
+        // Si ja està obert, no fem res (opcional, per seguretat)
+        if (infoWindow.xrayPanel.activeSelf) return;
+
+        PauseAutoplay();
+
+        Time.timeScale = 0f;          // Freeze animations, camera, physics
+        audioManager?.PauseDialogue(); // ⬅️ ONLY dialogue
+
+        infoWindow.PopulateXrayData();
+
+        infoWindow.xrayPanel.SetActive(true);
+    }
+    public void CloseXrayWindow()
+    {
+        infoWindow.xrayPanel.SetActive(false);
+
+        Time.timeScale = 1f;   // ⬅️ RESUME TIME
+        audioManager?.ResumeDialogue();  // ⬅️ Resume dialogue
+
+        ResumeAutoplay();
     }
 
     void UpdateLineInfo()
@@ -440,16 +467,6 @@ public class RitualController : MonoBehaviour
             Environment env = ritualData.FindEnvironment(currentLine.EnvironmentID);
             if (env != null) SetOrigin(env);
         }
-
-        // Branch handling
-        if (currentLine.Description?.Contains("ChooseBranch") == true)
-        {
-            waitForBranch = true;
-            if (choicePanel == null) CreateChoicePanel();
-            else choicePanel.SetActive(true);
-            return;
-        }
-        else choicePanel?.SetActive(false);
 
         // Character placement and rotation
         Character character = ritualData.FindCharacter(currentLine.CharacterID);
@@ -540,10 +557,90 @@ public class RitualController : MonoBehaviour
         mainCamera.transform.rotation = endRot;
     }
 
+    void CreateChoicePanel()
+    {
+        // Canvas
+        GameObject canvasGO = new GameObject("ChoiceCanvas");
+        Canvas canvas = canvasGO.AddComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvasGO.AddComponent<CanvasScaler>(); canvasGO.AddComponent<GraphicRaycaster>();
+
+        canvas.sortingOrder = 10; // Prioritat mitjana
+
+        // Panel background
+        choicePanel = new GameObject("ChoicePanel");
+        choicePanel.transform.SetParent(canvasGO.transform, false);
+        Image panelImage = choicePanel.AddComponent<Image>();
+        panelImage.color = new Color(0, 0, 0, 0.7f);
+
+        RectTransform panelRect = choicePanel.GetComponent<RectTransform>();
+        panelRect.anchorMin = new Vector2(0.1f, 0.3f);
+        panelRect.anchorMax = new Vector2(0.9f, 0.7f);
+        panelRect.offsetMin = Vector2.zero; panelRect.offsetMax = Vector2.zero;
+
+        // Local helper to create buttons
+        Button CreateButton(string label, string id)
+        {
+            GameObject buttonGO = new GameObject("Button" + id);
+            buttonGO.transform.SetParent(choicePanel.transform, false);
+
+            Button button = buttonGO.AddComponent<Button>();
+            Image btnImage = buttonGO.AddComponent<Image>(); btnImage.color = Color.white;
+
+            RectTransform btnRect = buttonGO.GetComponent<RectTransform>();
+            btnRect.sizeDelta = new Vector2(600, 60); btnRect.anchorMin = btnRect.anchorMax = new Vector2(0.5f, 0.5f);
+            btnRect.pivot = new Vector2(0.5f, 0.5f);
+
+            // Button label
+            GameObject textGO = new GameObject("Text");
+            textGO.transform.SetParent(buttonGO.transform, false);
+            Text text = textGO.AddComponent<Text>();
+            text.text = label; text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            text.alignment = TextAnchor.MiddleCenter; text.color = Color.black; text.fontSize = 20;
+
+            RectTransform textRect = textGO.GetComponent<RectTransform>();
+            textRect.anchorMin = Vector2.zero; textRect.anchorMax = Vector2.one;
+            textRect.offsetMin = Vector2.zero; textRect.offsetMax = Vector2.zero;
+
+            button.onClick.AddListener(() => SelectBranch(id));
+            return button;
+        }
+
+        // Create buttons dynamically
+        List<Branch> branches = ritualData.Branches;
+        float step = 70f;
+        for (int i = 0; i < branches.Count; i++)
+        {
+            string buttonText = branches[i].ButtonText;
+            string branchID = branches[i].Id;
+            Button newButton = CreateButton(buttonText, branchID);
+            RectTransform btnRect = newButton.GetComponent<RectTransform>();
+
+            float totalHeight = branches.Count * step;
+            float startY = totalHeight / 2f - step / 2f;
+            btnRect.anchoredPosition = new Vector2(0, startY - i * step);
+        }
+    }
+
+    public void SelectBranch(string branchID)
+    {
+        selectedBranch = branchID;
+        waitForBranch = false;
+
+        var branch = ritualData.Branches.FirstOrDefault(b => b.Id == branchID);
+        if (branch == null) { Debug.LogError($"Branch {branchID} not found."); return; }
+
+        int branchStartIndex = branch.StartingLine - 2; // Convert to 0-based
+        branchEnd = branch.EndingLine - 2;
+        currentIndex = branchStartIndex;
+
+        choicePanel?.SetActive(false);
+
+        Debug.Log($"Branch selected: {branchID}, from {branchStartIndex} to {branchEnd}");
+    }
+
+
     // Utilities
     Vector3 ToLocal(Vector3 worldPosition) => worldPosition + newOrigin;
 
     public RitualData GetRitualData() => ritualData;
 }
-
-

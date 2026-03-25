@@ -23,13 +23,14 @@
         {
             "Id": "Ptah",
             "Description": "Temple of Ptah at Karnak",
-            "Model": "Egypt",
+            "Model": "Egypt2",
             "Unit": "meter",
             "Origin": [
                 62.93136,
                 14.27303,
                 -9.87154
-            ]
+            ],
+            "ExtendedDescription": "Temple...."
         }
     ],
     "Places": [
@@ -109,8 +110,9 @@
                 "-6",
                 "1-106"
             ],
+            "Description": "Inscribed font",
             "Model": "StatuePila",
-            "ExtendedDescription": "Estatua portadora de cippus de Horus con pila inscrita",
+            "ExtendedDescription": "Horus cippus-bearing statue with inscribed font",
             "Scale": [
                 3.5,
                 3.5,
@@ -125,7 +127,7 @@
                 2.85,
                 -11.0
             ],
-            "Description": "Estatuilla del dios Thot",
+            "Description": "Statuette of the God Thoth",
             "Model": "thot",
             "Scale": [
                 1.0,
@@ -141,9 +143,9 @@
                 2.48,
                 -10.3
             ],
-            "Description": "Manual de magia",
+            "Description": "Magic manual",
             "Model": "papyrus_scroll",
-            "ExtendedDescription": "Rollo de papiro",
+            "ExtendedDescription": "Papyrus scroll",
             "Scale": [
                 0.03,
                 0.05,
@@ -160,15 +162,16 @@
             "IsStatic": "True",
             "Location": [
                 1.42,
-                10.5,
+                7.5,
                 -15.6
             ],
-            "Description": "Estátua de la diosa Sekhmet",
-            "Model": "sekhmet",
+            "Description": "Statue of the Goddess Sekhmet",
+            "Model": "sekhmet_granite2",
+            "ExtendedDescription": "New Kingdom, Dyn. XVIII, reign of Amenhotep III\nBlack granite\nFrom the temple of Ptah, Karnak.\n\nThe quick-tempered goddess Sekhmet personified the destructive power of the sun. However, once ritually appeased, the ‘furious one who kills’ became the ‘satisfied one who gives life’. Once assuaged, she became a beneficent and protective entity who granted the king long years of renewed life and a prosperous reign, as well as protection against illness and enemies. \n\nHolding life and death in her hands, she had the privilege of preserving life, as well as the power of sending calamities. The suffocating heat of the month of Epiphi (May-June), fevers, epidemics and the pollution of the waters of the Nile were considered to be acts of the goddess Sekhmet and her emissaries that preceded the annual arrival of the flood. \n\nAll were vulnerable to her seven arrows, especially during the epagomenal days (additional days of the year). Even the spoiling of food was attributed to her short-tempered actions. The wab-priest was able to interact with this deity and assuage her as his purity immunized him from the dangerous effects of her power.\n\nKing Amenhotep III commissioned hundreds of statues of the goddess for his temple of millions of years in western Thebes, the Amenophium. These statues were meant as a monumental prayer to appease the goddess —perhaps in a time of of epidemic—and thus guarantee peace and health.",
             "Scale": [
-                0.005,
-                0.005,
-                0.005
+                0.003,
+                0.003,
+                0.003
             ],
             "Rotation": [
                 -180.0,
@@ -184,6 +187,7 @@
                 1.0,
                 -10.6
             ],
+            "Description": "Altar",
             "Model": "altar",
             "Scale": [
                 4.8,
@@ -197,6 +201,41 @@
             ]
         },
         {
+            "Id": "Pica",
+            "IsStatic": "True",
+            "Location": [
+                -7.0,
+                2.75,
+                -10.6
+            ],
+            "Model": "pica",
+            "Scale": [
+                2.0,
+                2.0,
+                2.0
+            ],
+            "Rotation": [
+                0.0,
+                90.0,
+                0.0
+            ]
+        },
+        {
+            "Id": "BasePica",
+            "IsStatic": "True",
+            "Location": [
+                -7.0,
+                1.0,
+                -10.6
+            ],
+            "Model": "altar",
+            "Scale": [
+                2.0,
+                4.0,
+                2.0
+            ]
+        },
+        {
             "Id": "Censer",
             "IsStatic": "False",
             "Location": [
@@ -204,6 +243,7 @@
                 0.0,
                 0.0
             ],
+            "Description": "Censer",
             "Model": "censer",
             "Scale": [
                 1.0,
@@ -219,13 +259,13 @@
                 2.85,
                 -10.6
             ],
-            "Description": "Cippi de Horus (20cm)",
+            "Description": "Cippus of Horus",
             "Model": "stela",
-            "ExtendedDescription": "estelas de grauvaca de Harpócrates sobre cocodrilos cubiertas de imágenes y textos mágicos.",
+            "ExtendedDescription": "Cippi of Horus (20cm). estelas de grauvaca de Harpócrates sobre cocodrilos cubiertas de imágenes y textos mágicos.",
             "Scale": [
-                0.5,
-                0.5,
-                0.5
+                0.75,
+                0.75,
+                0.75
             ],
             "Size": "0.2"
         },
@@ -237,8 +277,9 @@
                 0.0,
                 0.0
             ],
+            "Description": "Hes vase",
             "Model": "vaso-hes",
-            "ExtendedDescription": "Vaso hes para contener líquido de libaciones",
+            "ExtendedDescription": "Vessel for holding libation liquid",
             "Scale": [
                 1.0,
                 1.0,
@@ -258,7 +299,7 @@
                 0.0,
                 0.0
             ],
-            "Description": "Cetro kherep",
+            "Description": "Kherep scepter",
             "Model": "cetro-alt",
             "Scale": [
                 1.0,
@@ -279,8 +320,9 @@
                 0.0,
                 0.0
             ],
+            "Description": "Cane",
             "Model": "cane",
-            "ExtendedDescription": "Bastón con cabezal de la diosa Bastet",
+            "ExtendedDescription": "Staff with head of the goddess Bastet",
             "Scale": [
                 1.0,
                 1.0,
@@ -295,12 +337,13 @@
                 0.0,
                 0.0
             ],
-            "Description": "Vaso nw de vino",
+            "Description": "<i>Nw</i> vase",
             "Model": "vaso-nw",
+            "ExtendedDescription": "Nw vase with wine",
             "Scale": [
-                0.5,
-                0.5,
-                0.5
+                0.75,
+                0.75,
+                0.75
             ]
         },
         {
@@ -311,12 +354,11 @@
                 0.0,
                 0.0
             ],
-            "Description": "Vaso nw de vino",
             "Model": "vaso-nw",
             "Scale": [
-                0.5,
-                0.5,
-                0.5
+                0.75,
+                0.75,
+                0.75
             ]
         },
         {
@@ -327,7 +369,7 @@
                 "3",
                 "-10.5.5"
             ],
-            "Description": "Bol de purificación",
+            "Description": "Purification bowl",
             "Model": "bowl",
             "Scale": [
                 0.9,
@@ -343,7 +385,7 @@
                 2.85,
                 -11.0
             ],
-            "Description": "Alabastrón para aceite",
+            "Description": "Alabaster for oil",
             "Model": "alabastron",
             "Scale": [
                 1.0,
@@ -354,8 +396,9 @@
         {
             "Id": "Pouch",
             "IsStatic": "False",
-            "Description": "Regalos Nesuhor para la diosa",
+            "Description": "Gifts for the Goddess",
             "Model": "pouch",
+            "ExtendedDescription": "Pouch with gifts from the client for the goddess",
             "Scale": [
                 0.004,
                 0.004,
@@ -370,8 +413,8 @@
                 3.0,
                 -10.0
             ],
-            "Description": "Cippi de Horus (5cm)",
             "Model": "StelaMini",
+            "ExtendedDescription": "Cippi of Horus (5cm)",
             "Scale": [
                 0.2,
                 0.2,
@@ -388,9 +431,9 @@
         {
             "Id": "Priest",
             "Name": "Yuny",
-            "Description": "Sacerdote puro de Sekhmet",
-            "ExtendedDescription": "Hombre de mediana edad, con el faldillín shendyt, sandalias, collar menat, y la cabeza rapada, con peluca. Porta un bastón de ébano con la cabeza de la diosa Bastet en la mano izquierda y, en la mano derecha, un cetro kherep.",
-            "Model": "male",
+            "Description": "The <i>wab</i>-priest Yuny",
+            "ExtendedDescription": "New Kingdom, Dyn. XIX, reign of Sethy.\n\nYuny was a pure (<i>wab</i>) priest of the goddess Sekhmet, a type of ancient Egyptian ritualist closely linked to the Houses of Life that played an important role in the protection of the country, the living image of Apis and the practice of medicine. <i>Wab</i>-priests are documented in the Edwin Smith and Ebers medical papyruses as specialists in the diagnosis of illnesses. They were experts in the art of diagnosing illnesses by touching their patients. Thanks to their medical knowledge, <i>wab</i>-priests were also required to accompany members of mining and trading expeditions. \n\nThe pure priests (<i>wab</i>) of the goddess Sekhmet appear to have frequently fulfilled additional liturgical functions as lector priests within temple contexts, as evidenced by an inscription on the statue of Yuny and his wife Renenutet, discovered in the tomb chapel of Amenhotep at Asyut (MMA 15.2.1).The list of all his titles on the base of the statue tells us that Yuny was a priest-reader, head of the pure priests of Sekhmet and son of Amenhotep, who held the same post.\n\nThanks to their purity, Yuny was able to assuage Sekhmet while being protected from the dangerous effects of the goddess’ power. However, the duality of Sekhmet –the furious one who kills/the satisfied one who vitalises– also characterised the priests who officiated at her worship. \n\nThe spells and acts of Sekhmet’s wab-priest could be considered the causes of disease and illness. This is due to the fact that once the goddess had been appeased and neutralised, Sekhmet’s attributes were transferred to and assimilated by her officiant. The survival of these officiants into the Roman period is further proof of the cultural resilience of ancient Egyptian traditions under Greco-Roman domination.",
+            "Model": "Mago-03",
             "Scale": [
                 3.0,
                 3.0,
@@ -399,8 +442,9 @@
         },
         {
             "Id": "Acolyte1",
-            "ExtendedDescription": "Joven sacerdote sem vestido con el faldillín shendyt y piel de leopardo. Sostiene objetos rituales, hace libaciones y acompaña al sacerdote en el proceso.",
-            "Model": "male",
+            "Description": "Acolytes",
+            "ExtendedDescription": "Young Sem priest dressed in the shendyt kilt and leopard skin. He holds ritual objects, makes libations, and accompanies the priest in the process.",
+            "Model": "Acolit-02",
             "Scale": [
                 3.0,
                 3.0,
@@ -409,8 +453,7 @@
         },
         {
             "Id": "Acolyte2",
-            "ExtendedDescription": "Joven sacerdote sem vestido con el faldillín shendyt y piel de leopardo. Sostiene objetos rituales, hace libaciones y acompaña al sacerdote en el proceso.",
-            "Model": "male",
+            "Model": "Acolit-02",
             "Scale": [
                 3.0,
                 3.0,
@@ -420,8 +463,9 @@
         {
             "Id": "Client",
             "Name": "Nesuhor",
-            "ExtendedDescription": "Noble egipcio vestido con túnica de lino fino, cinturón dorado y sandalias de cuero. Trae una ofrenda de oro, mirra e incienso y perfumes para la diosa.",
-            "Model": "male",
+            "Description": "Client",
+            "ExtendedDescription": "An Egyptian nobleman dressed in a fine linen tunic, gold belt, and leather sandals brings an offering of gold, myrrh, frankincense, and perfumes for the goddess.",
+            "Model": "Client-01",
             "Scale": [
                 3.0,
                 3.0,
@@ -529,6 +573,11 @@
             "Id": "stela_gold_exchange",
             "CharacterID": "Priest",
             "Actor": "Àlex Locubiche Vílchez"
+        },
+        {
+            "Id": "idle",
+            "CharacterID": "Client",
+            "Actor": "Àlex Locubiche Vílchez"
         }
     ],
     "Acts": [
@@ -552,6 +601,7 @@
             "SceneID": "1",
             "EnvironmentID": "Ptah",
             "Description": "Yuny is standing in front of the statue of Sekhmet",
+            "DurationOriginal": "0",
             "Duration": "0",
             "CharacterID": "Priest",
             "StartPos": "FrontOfSekhmet",
@@ -568,6 +618,7 @@
         {
             "ActID": "Act01",
             "SceneID": "1",
+            "DurationOriginal": "0",
             "Duration": "0",
             "CharacterID": "Acolyte1",
             "StartPos": "RightOfAltar",
@@ -578,6 +629,7 @@
         {
             "ActID": "Act01",
             "SceneID": "1",
+            "DurationOriginal": "0",
             "Duration": "0",
             "CharacterID": "Acolyte2",
             "StartPos": "LeftOfAltar",
@@ -590,7 +642,8 @@
             "ActID": "Act01",
             "SceneID": "1",
             "Description": "The nobleman is at the door. The noble Nesuhor enters the sanctuary with a reverent attitude. He kneels before the priest. Leaning, hands extended in supplication. Nesuhor, with a trembling gesture, lifts his tunic and reveals his armwith a wound caused by a scorpion bite.",
-            "Duration": "25",
+            "DurationOriginal": "25",
+            "Duration": "12.5",
             "CharacterID": "Client",
             "StartPos": "ArrivalClient",
             "Animation": "arrival",
@@ -600,52 +653,39 @@
             "ID": "ClientPetition",
             "ActID": "Act01",
             "SceneID": "1",
-            "Duration": "17",
+            "DurationOriginal": "25",
+            "Duration": "12.5",
             "CharacterID": "Client",
             "Dialogue": "¡Oh, gran sacerdote puro de Sekhmet, oíd mi clamor! Un mal que desconozco ha alterado el orden de mi vida y me estoy retorciendo de dolor. Os traigo oro, incienso y mirra, que sean dignas ofrendas para la diosa sanadora. Que ella dirija sus flechas contra mi mal y lo aniquile.",
-            "Audio": "test",
-            "CameraPos": [
-                -5.0,
-                8.0,
-                -8.0
-            ],
-            "CameraTarget": "Client"
+            "Audio": "client1-echo"
         },
         {
             "ID": "PriestHitFloor",
             "ActID": "Act01",
             "SceneID": "1",
             "Description": "Yuny raises his cane and hits the ground with it",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Priest",
             "Animation": "hit_floor",
             "Dialogue": "Escuchamos tu ruego, Nesuhor! Sekhmet, la leona irascible, una vez apaciguada es protectora y sanadora y muestra su buena disposición para aquél que la invoca. Muestra-nos tu herida, Nesuhor.",
-            "CameraPos": [
-                -5.0,
-                8.0,
-                8.0
-            ],
-            "CameraTarget": "Priest"
+            "Audio": "priest1-onyx"
         },
         {
             "ID": "ClientArrival",
             "ActID": "Act01",
             "SceneID": "1",
             "Description": "Nesuhor, with a trembling gesture, lifts his tunic and reveals his armwith a wound caused by a scorpion bite.",
-            "Duration": "4",
+            "DurationOriginal": "4",
+            "Duration": "2",
             "CharacterID": "Client",
-            "Animation": "show_wound",
-            "CameraPos": [
-                -5.0,
-                8.0,
-                -3.0
-            ],
-            "CameraTarget": "Altar"
+            "Animation": "show_wound"
         },
         {
             "ActID": "Act02",
             "SceneID": "2",
             "Description": "The acolytes begin to chant while making libations of wine for the goddess Sekhmet",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Acolyte1",
             "Animation": "libation"
@@ -653,6 +693,7 @@
         {
             "ActID": "Act02",
             "SceneID": "2",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Acolyte2",
             "Animation": "idle"
@@ -660,6 +701,7 @@
         {
             "ActID": "Act02",
             "SceneID": "2",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Acolyte2",
             "Animation": "leave_objects",
@@ -670,21 +712,17 @@
             "ActID": "Act02",
             "SceneID": "2",
             "Description": "Before proceeding to the ritual, the priest Yuny proceeds to his purification, performing ablutions and rinsing his mouth with natron.",
-            "Duration": "10",
+            "DurationOriginal": "10",
+            "Duration": "5",
             "CharacterID": "Acolyte1",
             "Animation": "purification",
             "GraspingLeft": "Bowl",
-            "GraspingRight": "Bowl",
-            "CameraPos": [
-                -5.0,
-                8.0,
-                8.0
-            ],
-            "CameraTarget": "Priest"
+            "GraspingRight": "Bowl"
         },
         {
             "ActID": "Act02",
             "SceneID": "2",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Priest",
             "Animation": "purification"
@@ -692,36 +730,42 @@
         {
             "ActID": "Act02",
             "SceneID": "2",
-            "Duration": "5",
+            "DurationOriginal": "5",
+            "Duration": "2.5",
             "CharacterID": "Acolyte2",
             "Animation": "rinse_mouth",
-            "GraspingLeft": "VasoNw2",
-            "GraspingRight": "Scepter",
-            "CameraPos": [
-                -5.0,
-                8.5,
-                5.0
-            ],
-            "CameraTarget": "Priest"
+            "GraspingLeft": "VasoHes",
+            "GraspingRight": "Scepter"
         },
         {
             "ActID": "Act02",
             "SceneID": "2",
             "Description": "performing ablutions and rinsing his mouth with natron.",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Priest",
             "Animation": "rinse_mouth",
             "GraspingLeft": "Scepter",
-            "GraspingRight": "VasoNw2"
+            "GraspingRight": "VasoHes"
         },
         {
             "ActID": "Act02",
             "SceneID": "2",
             "Description": "Yuny in front of Sekhmet with a solemn voice",
-            "Duration": "-1",
+            "DurationOriginal": "14",
+            "Duration": "7",
             "CharacterID": "Priest",
-            "Animation": "invocation",
-            "Dialogue": "No tendrás poder sobre mí; estoy completamente puro, soy el wab que te pertenece"
+            "Animation": "invocation"
+        },
+        {
+            "ActID": "Act02",
+            "SceneID": "2",
+            "Description": "Yuny in front of Sekhmet with a solemn voice",
+            "DurationOriginal": "18",
+            "Duration": "9",
+            "CharacterID": "Priest",
+            "Dialogue": "No tendrás poder sobre mí; estoy completamente puro, soy el wab que te pertenece",
+            "Audio": "priest2-onyx"
         },
         {
             "Description": "ChooseBranch"
@@ -732,25 +776,23 @@
             "SceneID": "3",
             "BranchID": "A",
             "Description": "The priest takes the stele. He rubs it on the patient's wound while saying the magic words",
-            "Duration": "-1",
+            "DurationOriginal": "35",
+            "Duration": "17.5",
             "CharacterID": "Priest",
             "Animation": "rub_stela",
             "GraspingRight": "Stela",
-            "Target": "Altar",
-            "Dialogue": "“Ven pronto a mí, ven pronto a mí en este día, como lo hizo por ti aquel que conduce la barca divina. \n¡Que puedas alejar de mí todo león que esté en la meseta del desierto, todo cocodrilo que esté en el río, y toda boca mordedora en su cueva! \nQue puedas transformarlas para mí en piedras del desierto, en trozos de cerámica a lo largo del camino...»",
-            "CameraPos": [
-                -5.0,
-                8.0,
-                -3.0
-            ],
-            "CameraTarget": "Priest"
+            "Target": "Altar"
         },
         {
             "ID": "BranchAEnds",
             "ActID": "Act02",
             "SceneID": "3",
             "BranchID": "A",
-            "CharacterID": "Priest"
+            "DurationOriginal": "55",
+            "Duration": "27.5",
+            "CharacterID": "Priest",
+            "Dialogue": "“Ven pronto a mí, ven pronto a mí en este día, como lo hizo por ti aquel que conduce la barca divina. \n¡Que puedas alejar de mí todo león que esté en la meseta del desierto, todo cocodrilo que esté en el río, y toda boca mordedora en su cueva! \nQue puedas transformarlas para mí en piedras del desierto, en trozos de cerámica a lo largo del camino...»",
+            "Audio": "priest3-onyx"
         },
         {
             "ID": "BranchBBegins",
@@ -758,12 +800,14 @@
             "SceneID": "3",
             "BranchID": "B",
             "Description": "The priest pours water over the stele, which is collected in a basin inscribed with magical formulas. Offer the water to the patient so that, by drinking it, he absorbs the heka of the images and magical texts with which the water has been in contact.",
-            "Duration": "37",
+            "DurationOriginal": "37",
+            "Duration": "18.5",
             "CharacterID": "Priest",
             "StartPos": "FrontOfSekhmet2",
             "Animation": "pathB",
             "GraspingRight": "VasoHes",
-            "Dialogue": "“Ven pronto a mí, ven pronto a mí en este día, como lo hizo por ti aquel que conduce la barca divina. \n¡Que puedas alejar de mí todo león que esté en la meseta del desierto, todo cocodrilo que esté en el río, y toda boca mordedora en su cueva! \nQue puedas transformarlas para mí en piedras del desierto, en trozos de cerámica a lo largo del camino...»"
+            "Dialogue": "“Ven pronto a mí, ven pronto a mí en este día, como lo hizo por ti aquel que conduce la barca divina. \n¡Que puedas alejar de mí todo león que esté en la meseta del desierto, todo cocodrilo que esté en el río, y toda boca mordedora en su cueva! \nQue puedas transformarlas para mí en piedras del desierto, en trozos de cerámica a lo largo del camino...»",
+            "Audio": "priest3-onyx"
         },
         {
             "ID": "BranchBEnds",
@@ -771,6 +815,7 @@
             "SceneID": "3",
             "BranchID": "B",
             "Description": "Drinks water",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Client",
             "Animation": "drink",
@@ -782,18 +827,21 @@
             "SceneID": "3",
             "BranchID": "C",
             "Description": "el sacerdote sumerge el cippus de Horus en una pila, rellena de aceite, inscrita con fórmulas mágicas. rellena el alabastron con el aceite. Aplica este aceite sobre la herida del paciente recitando las fórmuals mágicas",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Priest",
             "Animation": "pathC",
             "GraspingLeft": "Stela",
             "GraspingRight": "Alabastron",
-            "Dialogue": "“Ven pronto a mí, ven pronto a mí en este día, como lo hizo por ti aquel que conduce la barca divina. \n¡Que puedas alejar de mí todo león que esté en la meseta del desierto, todo cocodrilo que esté en el río, y toda boca mordedora en su cueva! \nQue puedas transformarlas para mí en piedras del desierto, en trozos de cerámica a lo largo del camino...»"
+            "Dialogue": "“Ven pronto a mí, ven pronto a mí en este día, como lo hizo por ti aquel que conduce la barca divina. \n¡Que puedas alejar de mí todo león que esté en la meseta del desierto, todo cocodrilo que esté en el río, y toda boca mordedora en su cueva! \nQue puedas transformarlas para mí en piedras del desierto, en trozos de cerámica a lo largo del camino...»",
+            "Audio": "priest3-onyx"
         },
         {
             "ID": "BranchCEnds",
             "ActID": "Act02",
             "SceneID": "3",
             "BranchID": "C",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Client"
         },
@@ -803,16 +851,19 @@
             "SceneID": "3",
             "BranchID": "D",
             "Description": "El sacerdote, viendo la gravedad de la herida, pide a sus acólitos que acompañen al paciente al sanatorium del templo",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Priest",
             "Animation": "pathD",
-            "Dialogue": "“Ven pronto a mí, ven pronto a mí en este día, como lo hizo por ti aquel que conduce la barca divina. \n¡Que puedas alejar de mí todo león que esté en la meseta del desierto, todo cocodrilo que esté en el río, y toda boca mordedora en su cueva! \nQue puedas transformarlas para mí en piedras del desierto, en trozos de cerámica a lo largo del camino...»"
+            "Dialogue": "“Ven pronto a mí, ven pronto a mí en este día, como lo hizo por ti aquel que conduce la barca divina. \n¡Que puedas alejar de mí todo león que esté en la meseta del desierto, todo cocodrilo que esté en el río, y toda boca mordedora en su cueva! \nQue puedas transformarlas para mí en piedras del desierto, en trozos de cerámica a lo largo del camino...»",
+            "Audio": "priest3-onyx"
         },
         {
             "ActID": "Act02",
             "SceneID": "3",
             "BranchID": "D",
             "Description": "los acolitos acompanyan a Nesuhor al sanatorium",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Acolyte1",
             "Animation": "basin"
@@ -821,6 +872,7 @@
             "ActID": "Act02",
             "SceneID": "3",
             "BranchID": "D",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Acolyte2",
             "Animation": "basin",
@@ -831,6 +883,7 @@
             "SceneID": "3",
             "BranchID": "D",
             "Description": "Nesuhor se sumerge en una bañera con el agua que previamente ha deslizado por una gran estela de Horus sobre cocodrilos instalada en un zócalo anexo a la bañera",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Client",
             "Animation": "basin_in",
@@ -842,6 +895,7 @@
             "SceneID": "3",
             "BranchID": "D",
             "Description": "Nesuhor se sumerge en una bañera con el agua que previamente ha deslizado por una gran estela de Horus sobre cocodrilos instalada en un zócalo anexo a la bañera",
+            "DurationOriginal": "-1",
             "Duration": "-1",
             "CharacterID": "Client",
             "Animation": "basin_out"
@@ -851,83 +905,95 @@
             "ActID": "Act02",
             "SceneID": "4",
             "Description": "Yuny (tomando el papiro y sosteniéndolo ante el fuego de un brasero)",
-            "Duration": "-1",
+            "DurationOriginal": "13",
+            "Duration": "6.5",
             "CharacterID": "Priest",
-            "Animation": "invocation",
+            "Animation": "invocation"
+        },
+        {
+            "ActID": "Act02",
+            "SceneID": "4",
+            "Description": "Yuny (tomando el papiro y sosteniéndolo ante el fuego de un brasero)",
+            "DurationOriginal": "10",
+            "Duration": "5",
+            "CharacterID": "Priest",
             "Dialogue": "Ven a la tierra, veneno poderoso! Nesuhor vive. El veneno ha muerto. El orden ha sido restablecido.",
-            "CameraPos": [
-                0.0,
-                7.0,
-                0.0
-            ],
-            "CameraTarget": "Altar"
+            "Audio": "priest4-onyx"
         },
         {
             "ActID": "Act03",
             "SceneID": "4",
             "Description": "Nesuhor arrodillándose y ofreciendo una bolsa de oro. Yuny (tomando la bolsa con solemnidad). El noble se inclina y se retira",
-            "Duration": "14",
+            "DurationOriginal": "8",
+            "Duration": "4",
             "CharacterID": "Client",
             "Animation": "stela_gold_exchange",
             "GraspingLeft": "Pouch",
             "GraspingRight": "StelaMini",
-            "Target": "Entrance",
-            "Dialogue": "Mi gratitud es vuestra, sacerdote puro. Que Sekhmet siempre os favorezca.",
-            "CameraPos": [
-                -5.0,
-                8.0,
-                8.0
-            ],
-            "CameraTarget": "Altar"
+            "Target": "Entrance"
         },
         {
             "ActID": "Act03",
             "SceneID": "4",
             "Description": "Nesuhor arrodillándose y ofreciendo una bolsa de oro. Yuny (tomando la bolsa con solemnidad). El noble se inclina y se retira",
-            "Duration": "-1",
+            "DurationOriginal": "14",
+            "Duration": "7",
+            "CharacterID": "Client",
+            "Dialogue": "Mi gratitud es vuestra, sacerdote puro. Que Sekhmet siempre os favorezca.",
+            "Audio": "client2-echo"
+        },
+        {
+            "ActID": "Act03",
+            "SceneID": "4",
+            "Description": "Nesuhor arrodillándose y ofreciendo una bolsa de oro. Yuny (tomando la bolsa con solemnidad). El noble se inclina y se retira",
+            "DurationOriginal": "10",
+            "Duration": "5",
             "CharacterID": "Priest",
             "Animation": "stela_gold_exchange",
             "GraspingLeft": "StelaMini",
             "GraspingRight": "Pouch",
-            "Target": "Entrance",
-            "Dialogue": "Te ofrezco este cippus de Horus en miniatura (3 cm) para que te acompañe como amuleto y te proteja a partir de hoy en todos los viajes que tu emprendereás. El veneno ha sido aniquilado. De la misma manera que Horus niño sanó, tu sanarás también de tu herida."
+            "Target": "Entrance"
+        },
+        {
+            "ActID": "Act03",
+            "SceneID": "4",
+            "Description": "Nesuhor arrodillándose y ofreciendo una bolsa de oro. Yuny (tomando la bolsa con solemnidad). El noble se inclina y se retira",
+            "DurationOriginal": "100",
+            "Duration": "50",
+            "CharacterID": "Priest",
+            "Dialogue": "Te ofrezco este cippus de Horus en miniatura (3 cm) para que te acompañe como amuleto y te proteja a partir de hoy en todos los viajes que tu emprendereás. El veneno ha sido aniquilado. De la misma manera que Horus niño sanó, tu sanarás también de tu herida.",
+            "Audio": "priest5-onyx"
         },
         {
             "ActID": "Act03",
             "SceneID": "4",
             "CharacterID": "Priest",
-            "Dialogue": "Ve en paz, Nesuhor. Recuerda contar a todos, al grande y al pequeño, que la fuerza de Horus es grande, el arquetipo del que vence el veneno, el protege a quien lo invoca.",
-            "CameraPos": [
-                0.0,
-                7.0,
-                13.0
-            ],
-            "CameraTarget": "Altar"
+            "Dialogue": "Ve en paz, Nesuhor. Recuerda contar a todos, al grande y al pequeño, que la fuerza de Horus es grande, el arquetipo del que vence el veneno, el protege a quien lo invoca."
         }
     ],
     "Branches": [
         {
             "Id": "A",
-            "StartingLine": "18",
-            "EndingLine": "19",
+            "StartingLine": "19",
+            "EndingLine": "20",
             "ButtonText": "May the god Horus restore order, may he be above Nesuhor's wound!"
         },
         {
             "Id": "B",
-            "StartingLine": "20",
-            "EndingLine": "21",
+            "StartingLine": "21",
+            "EndingLine": "22",
             "ButtonText": "May Nesuhor absorb the heka of Horus!"
         },
         {
             "Id": "C",
-            "StartingLine": "22",
-            "EndingLine": "23",
+            "StartingLine": "23",
+            "EndingLine": "24",
             "ButtonText": "May the sacred oil that has been in contact with Horus overcome the poison!"
         },
         {
             "Id": "D",
-            "StartingLine": "24",
-            "EndingLine": "28",
+            "StartingLine": "25",
+            "EndingLine": "29",
             "ButtonText": "Serious is the wound of Nesuhor, accompany him to the sanatorium!"
         }
     ]
